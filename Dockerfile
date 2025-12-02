@@ -3,7 +3,10 @@ FROM node:18-alpine AS node_build
 WORKDIR /app
 COPY package.json package-lock.json* ./
 COPY resources resources
-RUN npm ci --silent && npm run build || true
+# Ensure public exists so later COPY won't fail if build produced no files
+RUN mkdir -p /app/public \
+    && npm ci --silent \
+    && npm run build || true
 
 FROM php:8.1-fpm
 RUN apt-get update && apt-get install -y \

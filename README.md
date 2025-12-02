@@ -1,59 +1,164 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Frontend Digital Cockpit
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A modern front-end for the Digital Cockpit — a lightweight, Laravel-based UI that
+connects to backend APIs to show patient vitals, schedules, and health recommendations.
 
-## About Laravel
+**Subtitle:** A hospital-focused dashboard and patient management frontend.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+**Slogan:** Empower clinicians with actionable patient data, fast.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+**Last commit:** `1760ec0e5` - commit (initial): Deployment: Auto-push 2025-12-02 15:42:03
 
-## Learning Laravel
+**Primary languages:** PHP (Laravel), Blade templates, JavaScript, CSS, JSON
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+**How many languages used (approx):** 5
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+**Languages used in this repository:**
 
-## Laravel Sponsors
+-   PHP (Laravel controllers, models, helpers)
+-   Blade (Laravel view templates)
+-   JavaScript (frontend interactivity, AJAX)
+-   CSS (stylesheets and UI frameworks)
+-   JSON (config, package manifests)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+---
 
-### Premium Partners
+## Table of Contents
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+-   [Overview](#overview)
+-   [Getting Started](#getting-started)
+    -   [Prerequisites](#prerequisites)
+    -   [Installation](#installation)
+-   [Usage](#usage)
+-   [Testing](#testing)
+-   [Folder structure highlights](#folder-structure-highlights)
+-   [Configuration](#configuration)
+-   [Contributing](#contributing)
+-   [License](#license)
+
+---
+
+## Overview
+
+This repository holds the frontend for Digital Cockpit (hospital dashboard).
+It is built on top of Laravel and uses Blade templates for server-rendered pages
+with JavaScript for dynamic behavior (AJAX requests, realtime widgets).
+
+The frontend expects an API backend (configured through environment variables
+such as `API_URL`) that provides authentication and patient-related endpoints
+(heart rate, blood pressure, SpO2, LLM-based food recommendations, schedules).
+
+## Getting Started
+
+Follow these steps to run the frontend locally for development.
+
+### Prerequisites
+
+-   PHP 8.x (matching the project's composer.json requirement)
+-   Composer (for PHP dependencies)
+-   Node.js and npm (for building frontend assets with Vite)
+-   A configured backend API reachable from your environment (set `API_URL` in `.env`)
+
+### Installation
+
+1. Clone the repository:
+
+```bash
+git clone <repo-url> && cd digital-cockpit
+```
+
+2. Install PHP dependencies:
+
+```bash
+composer install
+```
+
+3. Install frontend dependencies and build assets (development):
+
+```bash
+npm install
+npm run dev
+```
+
+4. Copy and edit `.env` file — you can copy the example and set your API URL and
+   app keys:
+
+```bash
+cp .env.example .env
+php artisan key:generate
+# Edit .env -> set API_URL, DB config (if used), and other env settings
+```
+
+5. (Optional) Run migrations/seeding if you use local DB for sessions or caching.
+
+```bash
+php artisan migrate
+php artisan db:seed
+```
+
+6. Serve the app locally:
+
+```bash
+php artisan serve
+```
+
+Navigate to `http://127.0.0.1:8000` in your browser.
+
+## Usage
+
+-   Login at `/login` (the app delegates authentication to the configured `API_URL`).
+-   Dashboard widgets request patient vitals via AJAX routes (e.g. `/get-heart-rate`).
+-   The `HomeController` provides the main dashboard view; `PasienController` and
+    `DokterController` provide patient and doctor-related views and AJAX endpoints.
+
+Developer tips:
+
+-   Replace hardcoded/demo data in views (many templates use `rand()` or sample values)
+    with real backend data.
+-   Keep your API token in a secure store; the app currently stores the token in
+    session under `api_token` (see `AuthController`).
+
+## Testing
+
+-   There are basic PHPUnit/Pest tests in the `tests/` directory. To run tests:
+
+```bash
+./vendor/bin/phpunit
+# or if you use Pest:
+./vendor/bin/pest
+```
+
+## Folder structure highlights
+
+-   `app/Http/Controllers` — controllers for pages and API proxy endpoints
+-   `resources/views` — Blade templates for all pages (dashboard, pasien, dokter)
+-   `resources/js` and `resources/css` — frontend assets compiled by Vite
+-   `app/Helpers` — project helpers (e.g. `MyHelper.php`)
+
+## Configuration
+
+-   `API_URL` in `.env` must point to the backend API used for authentication and
+    patient data endpoints.
+-   The project uses session-based storage for the API token by default.
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Contributions welcome. Please follow these rules:
 
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+-   Open an issue to discuss significant changes before making them.
+-   Fork the repo and create feature branches for pull requests.
+-   Keep commits small and focused; write clear commit messages.
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project follows the MIT license. See the `LICENSE` file for details.
+
+---
+
+If you'd like, I can also:
+
+-   Auto-fill the `Last commit` field from the repo (I found a recent commit hash in `.git`),
+-   Add VS Code workspace recommendations, or
+-   Generate a quick `docs/` folder with more in-depth developer notes. Let me know which.

@@ -1,0 +1,9 @@
+# Direktori yang TIDAK perlu disalin ke dalam container saat build
+node_modules/
+vendor/
+
+# File penting lainnya yang harus diabaikan saat build
+.git
+.gitignore
+.env 
+.vscode/

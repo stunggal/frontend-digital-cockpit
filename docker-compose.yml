@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  app:
+    # Service PHP/Apache/Laravel Anda (Backend)
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: laravel-apache
+    ports:
+      - "8000:80"
+    volumes:
+      # Volume untuk sinkronisasi kode
+      - .:/var/www/html
+      # Tambahkan volume anonim untuk node_modules
+      # agar tidak bentrok dengan instalasi di host
+      - /var/www/html/node_modules
+    env_file:
+      - .env
+    # Service 'app' bergantung pada 'npm' agar proses instalasi
+    # berjalan lebih dulu (opsional, tapi disarankan)
+    depends_on:
+      - npm
+
+  npm:
+    # Service khusus untuk Node.js dan NPM (Frontend)
+    image: node:20-alpine # Gunakan image Node.js yang ringan
+    container_name: npm-runner
+    working_dir: /var/www/html
+    # Sinkronisasi kode yang sama
+    volumes:
+      - .:/var/www/html
+      # Volume anonim untuk node_modules juga disarankan di sini
+      - /var/www/html/node_modules
+    # Perintah default untuk service ini bisa dikosongkan,
+    # karena Anda akan menjalankannya secara manual.
+    command: /bin/true

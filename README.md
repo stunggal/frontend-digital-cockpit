@@ -3,14 +3,11 @@
 A modern front-end for the Digital Cockpit — a lightweight, Laravel-based UI that
 connects to backend APIs to show patient vitals, schedules, and health recommendations.
 
-**Subtitle:** A hospital-focused dashboard and patient management frontend.
+A hospital-focused dashboard and patient management frontend.
 
-**Slogan:** Empower clinicians with actionable patient data, fast.
+Empower clinicians with actionable patient data, fast.
 
 ---
-<!-- LAST_COMMIT_START -->
-**Last commit:** `f2ad882e` - commit: Deployment: Auto-push 2025-12-02 16:07:18 (auto-filled)
-<!-- LAST_COMMIT_END -->
 
 **Primary languages:** PHP (Laravel), Blade templates, JavaScript, CSS, JSON
 
@@ -157,9 +154,3 @@ Contributions welcome. Please follow these rules:
 This project follows the MIT license. See the `LICENSE` file for details.
 
 ---
-
-If you'd like, I can also:
-
--   Auto-fill the `Last commit` field from the repo (I found a recent commit hash in `.git`),
--   Add VS Code workspace recommendations, or
--   Generate a quick `docs/` folder with more in-depth developer notes. Let me know which.

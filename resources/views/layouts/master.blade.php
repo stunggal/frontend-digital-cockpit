@@ -49,9 +49,16 @@
 @include('layouts.vendor-scripts')
 <script src="{{ asset('/sw.js') }}"></script>
 <script>
-    if (!navigator.serviceWorker.controller) {
-        navigator.serviceWorker.register("/sw.js").then(function(reg) {
-            console.log("Service worker registered: " + reg.scope);
+    // Hanya daftarkan jika browser mendukung Service Worker
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+            navigator.serviceWorker.register('/sw.js').then(function(registration) {
+                // Pendaftaran berhasil
+                console.log('Service Worker berhasil didaftarkan: ', registration.scope);
+            }, function(err) {
+                // Pendaftaran gagal
+                console.log('Service Worker gagal didaftarkan: ', err);
+            });
         });
     }
 </script>

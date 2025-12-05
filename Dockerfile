@@ -1,37 +1,46 @@
-# Multi-stage Dockerfile: build Node assets, then PHP-FPM app
-FROM node:18-alpine AS node_build
-WORKDIR /app
-COPY package.json package-lock.json* ./
-COPY resources resources
-# Ensure public exists so later COPY won't fail if build produced no files
-RUN mkdir -p /app/public \
-    && npm ci --silent \
-    && npm run build || true
+# Gunakan image PHP-Apache resmi sebagai basis
+FROM php:8.3-apache
 
-FROM php:8.1-fpm
+# Instal dependensi sistem yang dibutuhkan oleh Laravel (misalnya GD, PDO)
 RUN apt-get update && apt-get install -y \
-    git unzip libpng-dev libonig-dev libxml2-dev libzip-dev zip \
-    && docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath gd zip \
+    git \
+    unzip \
+    libzip-dev \
+    libonig-dev \
+    libpng-dev \
+    libjpeg-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Composer from official image
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+# Instal ekstensi PHP yang dibutuhkan
+RUN docker-php-ext-install pdo_mysql mbstring zip exif pcntl gd
 
+# Konfigurasi Apache: Aktifkan module rewrite
+RUN a2enmod rewrite
+
+# Atur direktori kerja di dalam kontainer
 WORKDIR /var/www/html
-# Install PHP dependencies declared in composer files (if present)
-COPY composer.json composer.lock* ./
-RUN if [ -f composer.json ]; then composer install --no-dev --optimize-autoloader --prefer-dist --no-interaction --no-progress || true; fi
 
-# Copy application code
+# Salin composer.lock dan composer.json untuk menginstal dependensi
+COPY composer.json composer.lock ./
+
+# Instal Composer (sebagai bagian dari proses build)
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+# Jalankan Composer install
+# --no-dev untuk production, --no-scripts untuk menghindari error sebelum seluruh kode disalin
+RUN composer install --no-dev --no-scripts --optimize-autoloader
+
+# Salin semua kode aplikasi ke direktori kerja kontainer
 COPY . .
 
-# Copy built assets from node stage (if any)
-COPY --from=node_build /app/public /var/www/html/public
+# Berikan hak akses ke direktori storage dan bootstrap/cache
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
-# Ensure storage and cache are writable
-RUN set -ex \
-    && mkdir -p /var/www/html/storage /var/www/html/bootstrap/cache \
-    && chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache || true
+# Generate key (hanya jika belum ada di .env)
+# RUN php artisan key:generate
 
-EXPOSE 9000
-CMD ["php-fpm"]
+# Konfigurasi Virtual Host Apache agar mengarah ke public/
+COPY docker/000-default.conf /etc/apache2/sites-available/000-default.conf
+
+# Secara default, CMD dari base image akan menjalankan Apache

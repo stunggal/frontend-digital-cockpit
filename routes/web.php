@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DokterController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\HybridAppController;
 use App\Http\Controllers\PasienController;
 use App\Http\Middleware\AuthenticateApiSession;
 use Illuminate\Support\Facades\Route;
@@ -47,10 +48,10 @@ Route::middleware([AuthenticateApiSession::class])->group(function () {
 
     // LLM-based food recommendation (expects POST with `description`)
     Route::post('/get-food-recommendation', [PasienController::class, 'getFoodRecommendation'])->name('pasien.getFoodRecommendation');
-
-    // Logout: clears session token and redirects to login
-    Route::get('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 });
+// Logout: clears session token and redirects to login
+Route::get('/logout', [AuthController::class, 'logout'])->name('auth.logout');
+Route::get('/hybrid', [HybridAppController::class, 'index'])->name('hybrid.index');
 
 // Lightweight test route to inspect an environment variable (dev-only)
 Route::get('/test-env', [HomeController::class, 'testEnv'])->name('home.testEnv');

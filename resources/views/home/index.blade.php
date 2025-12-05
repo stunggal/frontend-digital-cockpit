@@ -246,30 +246,12 @@
                                         </thead>
 
                                         <tbody>
-                                            @foreach ($data['medical_checkup_history'] as $event)
-                                                <tr>
-                                                    {{-- Event row for medical checkup history --}}
-                                                    <td>{{ $event['event'] }}</td>
-                                                    {{-- Use helper to render combined date+time in human format --}}
-                                                    <td>{{ MyHelper::formatDateTime($event['tanggal'], $event['jam']) }}
-                                                    </td>
-                                                    {{-- <td><img src="{{ URL::asset('build/images/users/avatar-1.jpg') }}" --}}
-                                                    <td><img src="{{ $event['dokter']['avatar'] }}" alt=""
-                                                            class="avatar-xs rounded-circle me-2">
-                                                        <a href="#javascript: void(0);"
-                                                            class="text-body fw-semibold">{{ $event['dokter']['nama'] }}</a>
-                                                    </td>
-                                                    <td><button type="button" class="btn btn-info-subtle text-info p-2"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#exampleModalScrollable{{ $event['id'] }}">Lihat</button>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
+                                            hahahahahahah
                                         </tbody><!-- end tbody -->
                                     </table><!-- end table -->
                                 </div><!-- end table responsive -->
                                 <div class="d-flex justify-content-center mt-3">
-                                    {{ $data['medical_checkup_history']->onEachSide(2)->links('pagination::bootstrap-4') }}
+                                    huhu
                                 </div>
                             </div><!-- end card body -->
                         </div><!-- end card -->
@@ -529,172 +511,7 @@
             </div>
         </div>
     </div>
-    @foreach ($data['medical_checkup_history'] as $event)
-        <div class="modal fade" id="exampleModalScrollable{{ $event['id'] }}" tabindex="-1" role="dialog"
-            aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-scrollable">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title fw-bold" id="exampleModalScrollableTitle">Catatan Dokter</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <h6 class="fs-16 fw-bold">Rekomendasi Nutrisi</h6>
-                        <div class="d-flex">
-                            <div class="flex-shrink-0">
-                                <i class="ri-checkbox-circle-fill text-success"></i>
-                            </div>
-                            <div class="flex-grow-1 ms-2">
-                                <p class="text-muted mb-0"><span class="fw-bold">Cataatan:</span>{{ $event['catatan'] }}
-                                </p>
-                            </div>
-                        </div>
-                        <div class="d-flex">
-                            <div class="flex-shrink-0">
-                                <i class="ri-checkbox-circle-fill text-success"></i>
-                            </div>
-                            <div class="flex-grow-1 ms-2">
-                                <p class="text-muted mb-0"><span class="fw-bold">Menu Makanan:</span> <br>
-                                    Sarapan: Bubur ayam tanpa santan, telur rebus.<br>
-                                    Makan Siang: Ikan salmon panggang, nasi merah, brokoli kukus.<br>
-                                    Makan Malam: Sup sayuran dengan tahu kukus.<br>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="d-flex">
-                            <div class="flex-shrink-0">
-                                <i class="ri-checkbox-circle-fill text-success"></i>
-                            </div>
-                            <div class="flex-grow-1 ms-2">
-                                <p class="text-muted mb-0"><span class="fw-bold">Pantangan:</span> Hindari makanan
-                                    berlemak
-                                    tinggi, gorengan, dan gula
-                                    berlebih.
-                                </p>
-                            </div>
-                        </div>
-                        <h6 class="fs-16 mt-3">Obat dan Vitamin</h6>
-                        <div class="d-flex">
-                            <div class="flex-shrink-0">
-                                <i class="ri-checkbox-circle-fill text-success"></i>
-                            </div>
-                            <div class="flex-grow-1 ms-2">
-                                <p class="text-muted mb-0"><span class="fw-bold">Obat:</span> <br>
-                                    Paracetamol (500 mg): 3x sehari setelah makan.<br>
-                                    Antibiotik Cefadroxil (500 mg): 2x sehari selama 7 hari.</p>
-                            </div>
-                        </div>
-                        <div class="d-flex">
-                            <div class="flex-shrink-0">
-                                <i class="ri-checkbox-circle-fill text-success"></i>
-                            </div>
-                            <div class="flex-grow-1 ms-2">
-                                <p class="text-muted mb-0"><span class="fw-bold">Vitamin:</span> <br>
-                                    Vitamin C: 500 mg per hari untuk mendukung pemulihan.<br>
-                                    Vitamin D: 1000 IU per hari untuk meningkatkan sistem kekebalan.</p>
-                            </div>
-                        </div>
-                        <div class="d-flex">
-                            <div class="flex-shrink-0">
-                                <i class="ri-checkbox-circle-fill text-success"></i>
-                            </div>
-                            <div class="flex-grow-1 ms-2">
-                                <p class="text-muted mb-0"><span class="fw-bold">Catatan untuk Apoteker:</span> Harap
-                                    siapkan
-                                    obat dan vitamin sesuai resep
-                                    untuk pemberian harian.
-                            </div>
-                        </div>
-                        <h6 class="fs-16 mt-3"><span class="fw-bold">Tindakan Medis</span></h6>
-                        <div class="d-flex">
-                            <div class="flex-shrink-0">
-                                <i class="ri-checkbox-circle-fill text-success"></i>
-                            </div>
-                            <div class="flex-grow-1 ms-2">
-                                <p class="text-muted mb-0"><span class="fw-bold">Operasi:</span> <br>
-                                    Jenis Tindakan: Pengangkatan cairan di bagian perut (laparoskopi).<br>
-                                    Waktu: 25 Oktober 2024, pukul 09.00 pagi.<br>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="d-flex">
-                            <div class="flex-shrink-0">
-                                <i class="ri-checkbox-circle-fill text-success"></i>
-                            </div>
-                            <div class="flex-grow-1 ms-2">
-                                <p class="text-muted mb-0"><span class="fw-bold">Pengawasan Pasca Operasi:</span>
-                                    Observasi
-                                    setiap 2 jam selama 24 jam
-                                    pertama.</p>
-                            </div>
-                        </div>
-                        <h6 class="fs-16 mt-3"><span class="fw-bold">Pengambilan Sampel untuk Pemeriksaan
-                                Laboratorium</span>
-                        </h6>
-                        <div class="d-flex">
-                            <div class="flex-shrink-0">
-                                <i class="ri-checkbox-circle-fill text-success"></i>
-                            </div>
-                            <div class="flex-grow-1 ms-2">
-                                <p class="text-muted mb-0"><span class="fw-bold">Jenis Sampel:</span> <br>
-                                    Darah: Untuk pemeriksaan hemoglobin, leukosit, dan protein C-reaktif.<br>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="d-flex">
-                            <div class="flex-shrink-0">
-                                <i class="ri-checkbox-circle-fill text-success"></i>
-                            </div>
-                            <div class="flex-grow-1 ms-2">
-                                <p class="text-muted mb-0"><span class="fw-bold">Tanggal Pengambilan:</span> 24 Oktober
-                                    2024,
-                                    pukul 07.00 pagi.</p>
-                            </div>
-                        </div>
-                        <div class="d-flex">
-                            <div class="flex-shrink-0">
-                                <i class="ri-checkbox-circle-fill text-success"></i>
-                            </div>
-                            <div class="flex-grow-1 ms-2">
-                                <p class="text-muted mb-0"><span class="fw-bold">Instruksi untuk Laboratorium:</span>
-                                    Hasil
-                                    diharapkan selesai dalam waktu
-                                    24 jam dan dilaporkan ke dokter yang bertanggung jawab.</p>
-                            </div>
-                        </div>
-
-                        <h6 class="fs-16 mt-3"><span class="fw-bold">Catatan Lainnya</span></h6>
-                        <div class="d-flex">
-                            <div class="flex-shrink-0">
-                                <i class="ri-checkbox-circle-fill text-success"></i>
-                            </div>
-                            <div class="flex-grow-1 ms-2">
-                                <p class="text-muted mb-0"><span class="fw-bold">Pengingat untuk Nurse:</span> Pantau
-                                    tekanan
-                                    darah pasien setiap 6 jam.
-                                    Jika tekanan darah melebihi 140/90 mmHg, segera laporkan ke dokter yang bertugas.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="d-flex">
-                            <div class="flex-shrink-0">
-                                <i class="ri-checkbox-circle-fill text-success"></i>
-                            </div>
-                            <div class="flex-grow-1 ms-2">
-                                <p class="text-muted mb-0"><span class="fw-bold">Kondisi Pasien:</span> Pasien perlu
-                                    beristirahat cukup, disarankan
-                                    pembatasan aktivitas fisik berlebih untuk 3 hari ke depan.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Tutup</button>
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div>
-    @endforeach
+    heheheheh
 @endsection
 @section('script')
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -785,7 +602,7 @@
                         } else {
                             $('#food-recommendation-result').html(
                                 '<div class="alert alert-warning">Data rekomendasi tidak ditemukan.</div>'
-                                ).show();
+                            ).show();
                             console.warn('Struktur data rekomendasi tidak dikenali:', response);
                         }
                     },
@@ -793,7 +610,7 @@
                         console.error('Gagal mendapatkan rekomendasi makanan:', error);
                         $('#food-recommendation-result').html(
                             '<div class="alert alert-danger">Gagal mengambil rekomendasi. Silakan coba lagi.</div>'
-                            ).show();
+                        ).show();
                     },
                     complete: function() {
                         // hide spinner and re-enable button regardless of success/error

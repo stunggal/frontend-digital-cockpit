@@ -69,9 +69,7 @@ class HomeController extends Controller
             // Replace raw array with paginator for use in the view
             $data['medical_checkup_history'] = $medicalCheckupHistory;
 
-            if ($response->successful()) {
-                return view('home.index', compact('data'));
-            }
+            return view('home.index');
 
             // If API responds with a message, show it to the user
             if ($response->failed() && isset($data['message'])) {

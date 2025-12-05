@@ -20,7 +20,6 @@ class HybridAppController extends Controller
         $response = Http::withHeaders($headers)->post($urlEndpoint);
         $data = $response->json();
 
-        dd($data);
         return view('hybrid.index', compact('data'));
     }
 }

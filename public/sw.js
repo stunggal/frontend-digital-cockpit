@@ -1,5 +1,5 @@
-const CACHE_NAME = 'my-pwa-cache-v2'; // Ganti versi cache saat ada perubahan aset!
-const OFFLINE_URL = '/offline';
+const CACHE_NAME = 'my-pwa-cache-v3'; // Ganti versi cache saat ada perubahan aset!
+const OFFLINE_URL = '/offline.html';
 
 // Daftar aset-aset penting yang akan di-cache saat Service Worker diinstal
 // Pastikan semua aset yang direferensikan di offline.html ada di sini

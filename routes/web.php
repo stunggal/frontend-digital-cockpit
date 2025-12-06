@@ -53,9 +53,5 @@ Route::middleware([AuthenticateApiSession::class])->group(function () {
 Route::get('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 Route::get('/hybrid', [HybridAppController::class, 'index'])->name('hybrid.index');
 
-Route::get('/offline', function () {
-    return response()->file(public_path('offline.html'));
-})->name('offline');
-
 // Lightweight test route to inspect an environment variable (dev-only)
 Route::get('/test-env', [HomeController::class, 'testEnv'])->name('home.testEnv');

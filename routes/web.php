@@ -12,6 +12,10 @@ use Illuminate\Support\Facades\Route;
 // - GET  /login  -> shows the login form
 // - POST /login  -> posts credentials to external auth API via AuthController::loginPost
 // - GET  /reset  -> shows password reset view
+Route::get('/', function () {
+    return view('home.landing');
+});
+
 Route::get('/login', [AuthController::class, 'login'])->name('auth.login');
 Route::post('/login', [AuthController::class, 'loginPost'])->name('auth.loginPost');
 Route::get('/reset', [AuthController::class, 'reset'])->name('auth.passwordUpdate');
@@ -22,7 +26,7 @@ Route::get('/reset', [AuthController::class, 'reset'])->name('auth.passwordUpdat
 // call external APIs using that token and either return views or JSON.
 Route::middleware([AuthenticateApiSession::class])->group(function () {
     // Dashboard
-    Route::get('/', [HomeController::class, 'index'])->name('home.index');
+    Route::get('/home', [HomeController::class, 'index'])->name('home.index');
 
     // Patient vitals endpoints (AJAX): return JSON to update realtime widgets
     Route::get('/get-heart-rate', [PasienController::class, 'getHeartRate'])->name('pasien.getHeartRate');

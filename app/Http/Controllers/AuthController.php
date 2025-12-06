@@ -55,7 +55,7 @@ class AuthController extends Controller
             if ($response->successful()) {
                 // NOTE: consider encrypting session data / using secure storage
                 Session::put('api_token', $data['access_token']);
-                return redirect('/')->with('success', 'Selamat datang!');
+                return redirect('/home')->with('success', 'Selamat datang!');
             }
 
             // If API returned a readable error message, send it back to the form

@@ -25,6 +25,13 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse
      */
+
+    public function landing()
+    {
+        // Show the login form view
+        return view('home.landing');
+    }
+
     public function index()
     {
         // Prepare headers with bearer token stored in session

@@ -9,11 +9,6 @@
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
 
-    <!-- PWA -->
-    <meta name="theme-color" content="#6777ef">
-    <link rel="apple-touch-icon" href="{{ asset('logo.PNG') }}">
-    <link rel="manifest" href="{{ asset('/manifest.json') }}">
-
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ URL::asset('build/images/favicon.ico') }}">
     @include('layouts.head-css')
@@ -47,13 +42,6 @@
 
 <!-- JAVASCRIPT -->
 @include('layouts.vendor-scripts')
-<script>
-    if (!navigator.serviceWorker.controller) {
-        navigator.serviceWorker.register("/sw.js").then(function(reg) {
-            console.log("Service worker registered: " + reg.scope);
-        });
-    }
-</script>
 </body>
 
 </html>
